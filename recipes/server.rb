@@ -7,12 +7,8 @@ powershell_script 'Install IIS' do
   code 'Add-WindowsFeature Web-Server'
 end
 
-file 'C:\inetpub\wwwroot\Default.htm' do
-  content "<h1>Hello, World !</h1>
-<h2>PLATFORM: #{node['platform']}</h2>
-<h2>HOSTNAME: #{node['hostname']}</h2>
-<h2>MEMORY: #{node['memory']}</h2>
-<h2>CPU MHz: #{node['cpu']['0']['mhz']}</h2>"
+template 'C:\inetpub\wwwroot\Default.htm' do
+  source 'Default.htm.erb'
 end
 
 service 'w3svc' do
